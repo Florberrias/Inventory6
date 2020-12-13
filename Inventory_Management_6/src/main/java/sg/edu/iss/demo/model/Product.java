@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class Product {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int productId;
+	private int id;
 	private String name;
 	private String description;
 	private String type;
@@ -30,6 +31,8 @@ public class Product {
 	@ManyToOne
     @JoinColumn(name = "supplierId")
     private Supplier supplier;
+	@OneToMany(mappedBy = "order")
+	private Order order;
 	
 	public Product(String name, String description, String type, String category, float originalPrice,
 			float wholesalePrice, float retailPrice, float partnerPrice, int mOQ, String subCategory, Supplier supplier) {

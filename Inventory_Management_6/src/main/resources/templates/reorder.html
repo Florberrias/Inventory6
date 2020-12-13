@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<title>Reorder Page</title>
+</head>
+<body>
+  <header th:insert="layout/layout.html :: header"></header>
+  <div th:replace="layout/layout.html :: menu" ></div>
+  <h1>Listing</h1>
+  <table>
+ <tr>
+   <th>ORDER ID</th>
+   <th>NAME</th>
+   <th>UNIT PRICE</th>
+   <th>QTY</th>
+   <th>REORDER QTY</th>
+   <th>MIN ORDER QTY</th>
+   <th>LAST REORDER DATE</th>
+   <th>ORDER STATUS</th>
+   
+ </tr>
+ <tr th:each="order:${olist}">
+   <td th:text="${order.id}">Default</td> 
+   <td th:text="${order.name}">Default</td>
+   <td th:text="${order.product.originalPrice}">Default</td>
+   <td th:text="${order.quantity}">Default</td>
+   <td th:text="${order.reorderQty}">Default</td>
+   <td th:text="${order.product.MOQ">Default</td>
+   <td th:text="${order.lastReorderDate}">Default</td>
+   <td th:text="${order.orderStatus}">Default</td>
+ </tr>
+</table>
+  <div th:replace="layout/layout.html :: footer"></div>
+</body>
+</html>
