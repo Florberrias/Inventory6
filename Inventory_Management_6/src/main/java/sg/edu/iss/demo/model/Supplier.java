@@ -1,10 +1,11 @@
 package sg.edu.iss.demo.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
@@ -23,14 +24,17 @@ public class Supplier {
 	private int contactNumber;
 	private String address;
 	private String emailAddress;
-	@OneToMany
-	@JoinColumn(name="productId")
-	private Product product;
-	@OneToMany(mappedBy = "order")
-	private Order order;
+	
+	//list of products by this supplier
+	@OneToMany(mappedBy = "supplier")
+	private List<Product> products;
+	
+	//list of orders by this supplier
+	@OneToMany(mappedBy = "supplier")
+	private List<Reorder> orders;
 	
 	public Supplier(int brandId, String brandName, String companyName, int contactNumber, String address,
-			String emailAddress, Product product) {
+			String emailAddress, List<Product> products, List<Reorder> orders) {
 		super();
 		this.brandId = brandId;
 		this.brandName = brandName;
@@ -38,7 +42,9 @@ public class Supplier {
 		this.contactNumber = contactNumber;
 		this.address = address;
 		this.emailAddress = emailAddress;
-		this.product = product;
+		this.products = products;
+		this.orders = orders;
 	}
+
 	
 }

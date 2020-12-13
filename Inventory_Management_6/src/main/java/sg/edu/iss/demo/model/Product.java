@@ -1,5 +1,7 @@
 package sg.edu.iss.demo.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,14 +30,19 @@ public class Product {
 	private float partnerPrice;
 	private int MOQ;
 	private String subCategory;
+	
+	//supplier associated with this product
 	@ManyToOne
     @JoinColumn(name = "supplierId")
     private Supplier supplier;
-	@OneToMany(mappedBy = "order")
-	private Order order;
+	
+	//order associated with this product
+	@OneToMany(mappedBy = "product")
+	private List<Reorder> orders;
 	
 	public Product(String name, String description, String type, String category, float originalPrice,
-			float wholesalePrice, float retailPrice, float partnerPrice, int mOQ, String subCategory, Supplier supplier) {
+			float wholesalePrice, float retailPrice, float partnerPrice, int mOQ, String subCategory, Supplier supplier,
+			List<Reorder> orders) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -48,6 +55,7 @@ public class Product {
 		MOQ = mOQ;
 		this.subCategory = subCategory;
 		this.supplier = supplier;
+		this.orders = orders;
 	}
-		
+	
 }

@@ -15,23 +15,27 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-public class Order {
+public class Reorder {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	
+	//product associated with this order
 	@ManyToOne
-	@JoinColumn(name="productId")
+	@JoinColumn(name="productId", nullable = false)
 	private Product product;
 	private String name;
 	private int quantity;
 	private OrderStatus orderStatus;
 	private Date lastReorderDate;
 	private int reorderQty;
+	
+	//supplier associated with this order
 	@ManyToOne
-    @JoinColumn(name = "supplierId")
+    @JoinColumn(name = "supplierId", nullable = false)
     private Supplier supplier;
 	
-	public Order(Product product, String name, int quantity, OrderStatus orderStatus, Date lastReorderDate,
+	public Reorder(Product product, String name, int quantity, OrderStatus orderStatus, Date lastReorderDate,
 			int reorderQty, Supplier supplier) {
 		super();
 		this.product = product;
@@ -42,5 +46,5 @@ public class Order {
 		this.reorderQty = reorderQty;
 		this.supplier = supplier;
 	}
-	
+
 }
