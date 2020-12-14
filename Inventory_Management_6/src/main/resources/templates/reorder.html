@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <title>Reorder Page</title>
 </head>
 <body>
@@ -21,15 +21,15 @@
    <th>ORDER STATUS</th>
    
  </tr>
- <tr th:each="order:${olist}">
-   <td th:text="${order.id}">Default</td> 
-   <td th:text="${order.name}">Default</td>
-   <td th:text="${order.product.originalPrice}">Default</td>
-   <td th:text="${order.quantity}">Default</td>
-   <td th:text="${order.reorderQty}">Default</td>
-   <td th:text="${order.product.MOQ">Default</td>
-   <td th:text="${order.lastReorderDate}">Default</td>
-   <td th:text="${order.orderStatus}">Default</td>
+ <tr th:each="reorder:${rlist}">
+   <td th:text="${reorder.id}">Default</td> 
+   <td th:text="${reorder.name}">Default</td>
+   <td th:text="${reorder.product.originalPrice}">Default</td>
+   <td th:text="${reorder.quantity}">Default</td>
+   <td th:text="${reorder.reorderQty}">Default</td>
+   <td th:text="${reorder.product.MOQ">Default</td>
+   <td th:text="${reorder.lastReorderDate}">Default</td>
+   <td th:text="${reorder.orderStatus}">Default</td>
  </tr>
 </table>
   <div th:replace="layout/layout.html :: footer"></div>
