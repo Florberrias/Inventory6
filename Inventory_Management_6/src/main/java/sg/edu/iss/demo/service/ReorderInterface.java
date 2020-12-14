@@ -9,7 +9,7 @@ import sg.edu.iss.demo.model.Reorder;
 @Service
 public interface ReorderInterface {
 
-	public void save(Reorder order);
+	public void save(Reorder reorder);
 
 	public List<Reorder> list();
 

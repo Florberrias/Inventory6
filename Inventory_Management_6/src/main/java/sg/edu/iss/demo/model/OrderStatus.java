@@ -1,5 +1,5 @@
 package sg.edu.iss.demo.model;
 
 public enum OrderStatus {
-	RECEIVED, ORDERED, NOTORDERED
+	PENDINGORDER, ORDERED, RECEIVED, ADDEDTOINVENTORY
 }

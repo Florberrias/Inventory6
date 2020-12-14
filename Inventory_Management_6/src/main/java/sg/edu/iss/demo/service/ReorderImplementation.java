@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.demo.model.Reorder;
+import sg.edu.iss.demo.repo.ProductRepository;
 import sg.edu.iss.demo.repo.ReorderRepository;
 import sg.edu.iss.demo.repo.SupplierRepository;
 
@@ -14,19 +15,19 @@ import sg.edu.iss.demo.repo.SupplierRepository;
 public class ReorderImplementation implements ReorderInterface {
 
 	@Autowired
-	ReorderRepository orepo;
+	ReorderRepository rrepo;
 	
 	@Autowired
-	SupplierRepository srepo;
+	ProductRepository prepo;
 	
 	@Transactional
-	public void save(Reorder order) {
-		orepo.save(order);
+	public void save(Reorder reorder) {
+		rrepo.save(reorder);
 	}
 
-	@Override
+	@Transactional(timeout = 30, readOnly = true)
 	public List<Reorder> list() {
-		return orepo.findAll();
+		return rrepo.findAll();
 	}
 
 }

@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -27,6 +29,7 @@ public class Reorder {
 	private String name;
 	private int quantity;
 	private OrderStatus orderStatus;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date lastReorderDate;
 	private int reorderQty;
 	
