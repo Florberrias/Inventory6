@@ -13,21 +13,18 @@
 	<table width="100%">
 		<tr>
 			<!-- Select supplier and date range to generate specific reorder report -->
-			<td><label for="suppliers">Supplier: </label>
-				<select name="suppliers" id="suppliers">
-					<option th:each="reorder: ${rlist}" 
-							th:if="${reorder.orderQty} < ${reorder.product.MOQ}" 
-							th:text="${reorder.product.supplier.id}"></option>
-				</select>
-			</td>			
-			<td><label for="datefrom">Date From: </label>
-				<input type="date" id="datefrom" name="datefrom">
-				<td><label for="dateto">To: </label>
-				<input type="date" id="dateto" name="dateto">
+			<td><form action="http://localhost:8080/reorder/reorderreport" method="get">
+					<label for="suppliers">Supplier: </label>
+							<select name="suppliers" id="suppliers">
+								<option th:each="reorder: ${rlist}" 
+										th:if="${reorder.orderQty} < ${reorder.product.MOQ}" 
+										th:text="${reorder.product.supplier.id}"></option>
+							</select>
+					  Date From: <input type="date" name="datefrom">
+					  To: <input type="date" name="dateto">
+  				<input type="submit" id="report" value="Generate Reorder Report" formtarget="_blank">
+				</form>
 			</td>
-			<td><button onclick="window.location.href='http://localhost:8080/reorder/reorderreport';">
-			      Generate Reorder Report</button>
-			      </td>
 			
 			<!-- View number of records per page -->
 			<td><label for="pages">Record per page: </label> <select
@@ -45,6 +42,7 @@
 			</select></td>
 		</tr>
 	</table>
+	<!-- Generate list of orders needed to be reordered -->
 	<table class="table table-hover">
 		<thead>
 			<tr>
