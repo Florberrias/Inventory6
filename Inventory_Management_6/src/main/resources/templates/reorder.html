@@ -12,14 +12,14 @@
 	<h1>Manage Orders</h1>
 	<table width="100%">
 		<tr>
+			<!-- Select supplier and date range to generate specific reorder report -->
 			<td><label for="suppliers">Supplier: </label>
 				<select name="suppliers" id="suppliers">
-					<option th:each="reorder: ${rlist}" th:text="${reorder.product.supplier.id}"></option>
+					<option th:each="reorder: ${rlist}" 
+							th:if="${reorder.orderQty} < ${reorder.product.MOQ}" 
+							th:text="${reorder.product.supplier.id}"></option>
 				</select>
-			</td>
-		</tr>
-		<tr>
-			<td></td>
+			</td>			
 			<td><label for="datefrom">Date From: </label>
 				<input type="date" id="datefrom" name="datefrom">
 				<td><label for="dateto">To: </label>
@@ -28,12 +28,20 @@
 			<td><button onclick="window.location.href='http://localhost:8080/reorder/reorderreport';">
 			      Generate Reorder Report</button>
 			      </td>
+			
+			<!-- View number of records per page -->
 			<td><label for="pages">Record per page: </label> <select
 				name="pages" id="pages">
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
 					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>					
 			</select></td>
 		</tr>
 	</table>
@@ -41,9 +49,10 @@
 		<thead>
 			<tr>
 				<th>ORDER ID</th>
+				<th>SUPPLIER ID</th>
 				<th>NAME</th>
 				<th>UNIT PRICE</th>
-				<th>QTY</th>
+				<th>ORDER QTY</th>
 				<th>REORDER QTY</th>
 				<th>MIN ORDER QTY</th>
 				<th>LAST REORDER DATE</th>
@@ -53,8 +62,9 @@
 			</tr>
 		</thead>
 
-		<tr th:each="reorder: ${rlist}">
+		<tr th:each="reorder: ${rlist}" th:if="${reorder.orderQty} < ${reorder.product.MOQ}">
 			<td th:text="${reorder.id}">Default</td>
+			<td th:text="${reorder.product.supplier.id}">Default</td>
 			<td th:text="${reorder.product.name}">Default</td>
 			<td th:text="${reorder.product.originalPrice}">Default</td>
 			<td th:text="${reorder.orderQty}">Default</td>
@@ -66,13 +76,7 @@
 				<div th:if="${reorder.status.name() == 'PENDING_ORDER'}"><button onclick="window.location.href='http://localhost:8080/reorder/reorderform';">
 					Reorder Form</button>
 				</div>
-				<div th:if="${reorder.status.name() == 'REORDERED'}"><button onclick="window.location.href='http://localhost:8080/reorder/vieworder';">
-					View Order</button>
-				</div>
-				<div th:if="${reorder.status.name() == 'RECEIVED'}"><button onclick="window.location.href='http://localhost:8080/reorder/vieworder';">
-					View Order</button>
-				</div>
-				<div th:if="${reorder.status.name() == 'ADDED_TO_INVENTORY'}"><button onclick="window.location.href='http://localhost:8080/reorder/vieworder';">
+				<div th:if="${reorder.status.name() != 'PENDING_ORDER'}"><button onclick="window.location.href='http://localhost:8080/reorder/vieworder';">
 					View Order</button>
 				</div>
 			</td>
