@@ -8,7 +8,7 @@
 <body>
 	<header th:insert="layout/layout.html :: header"></header>
 	<div th:replace="layout/layout.html :: menu"></div>
-	<h1>Inventory Reorder Report for</h1>
+	<h1>Inventory Reorder Report from ${datefrom} to ${dateto}</h1>
 	<p>Boss SR takes over</p>
 	<div th:replace="layout/layout.html :: footer"></div>
 </body>

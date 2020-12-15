@@ -20,6 +20,9 @@ public class ReorderImplementation implements ReorderInterface {
 	@Autowired
 	ProductRepository prepo;
 	
+	@Autowired
+	SupplierRepository srepo;
+	
 	@Transactional
 	public void save(Reorder reorder) {
 		rrepo.save(reorder);

@@ -10,25 +10,35 @@
 	<header th:insert="layout/layout.html :: header"></header>
 	<div th:replace="layout/layout.html :: menu"></div>
 	<h1>Manage Orders</h1>
-
+	<table width="100%">
+		<tr>
+			<td><label for="suppliers">Supplier: </label>
+				<select name="suppliers" id="suppliers">
+					<option th:each="reorder: ${rlist}" th:text="${reorder.product.supplier.id}"></option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><label for="datefrom">Date From: </label>
+				<input type="date" id="datefrom" name="datefrom">
+				<td><label for="dateto">To: </label>
+				<input type="date" id="dateto" name="dateto">
+			</td>
+			<td><button onclick="window.location.href='http://localhost:8080/reorder/reorderreport';">
+			      Generate Reorder Report</button>
+			      </td>
+			<td><label for="pages">Record per page: </label> <select
+				name="pages" id="pages">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+			</select></td>
+		</tr>
+	</table>
 	<table class="table table-hover">
 		<thead>
-
-			<tr>
-				<td>
-					Date From: To:
-				</td>
-				<td><a href="http://localhost:8080/reorder/reorderreport">Generate Reorder Report</a></td>
-				<td><label for="pages">Record per page: </label>
-					<select name="pages" id="pages">
-					  <option value="1">1</option>
-					  <option value="2">2</option>
-					  <option value="3">3</option>
-					  <option value="4">4</option>
-					</select>
-				</td>
-			</tr>
-
 			<tr>
 				<th>ORDER ID</th>
 				<th>NAME</th>
@@ -39,41 +49,41 @@
 				<th>LAST REORDER DATE</th>
 				<th>ORDER STATUS</th>
 				<th></th>
+				<th></th>
 			</tr>
 		</thead>
 
 		<tr th:each="reorder: ${rlist}">
 			<td th:text="${reorder.id}">Default</td>
-			<td th:text="${reorder.name}">Default</td>
+			<td th:text="${reorder.product.name}">Default</td>
 			<td th:text="${reorder.product.originalPrice}">Default</td>
-			<td th:text="${reorder.quantity}">Default</td>
-			<td th:text="${reorder.reorderQty}">Default</td>
+			<td th:text="${reorder.orderQty}">Default</td>
+			<td th:text="${reorder.product.reorderQty}">Default</td>
 			<td th:text="${reorder.product.MOQ}">Default</td>
-			<td th:text="${reorder.lastReorderDate}">Default</td>
-			<td th:text="${reorder.orderStatus}">Default</td>
+			<td th:text="${reorder.date}">Default</td>
+			<td th:text="${reorder.status}">Default</td>
 			<td>
-				<div th:if="${reorder.orderStatus.name() == 'PENDINGORDER'}">
-					<a href="http://localhost:8080/reorder/reorderform">Reorder
-						Form</a>
+				<div th:if="${reorder.status.name() == 'PENDING_ORDER'}"><button onclick="window.location.href='http://localhost:8080/reorder/reorderform';">
+					Reorder Form</button>
 				</div>
-				<div th:if="${reorder.orderStatus.name() == 'ORDERED'}">
-					<a href="http://localhost:8080/reorder/vieworder">View Order</a>
+				<div th:if="${reorder.status.name() == 'REORDERED'}"><button onclick="window.location.href='http://localhost:8080/reorder/vieworder';">
+					View Order</button>
 				</div>
-				<div th:if="${reorder.orderStatus.name() == 'RECEIVED'}">
-					<a href="http://localhost:8080/reorder/vieworder">View Order</a>
+				<div th:if="${reorder.status.name() == 'RECEIVED'}"><button onclick="window.location.href='http://localhost:8080/reorder/vieworder';">
+					View Order</button>
 				</div>
-				<div th:if="${reorder.orderStatus.name() == 'ADDEDTOINVENTORY'}">
-					<a href="http://localhost:8080/reorder/vieworder">View Order</a>
+				<div th:if="${reorder.status.name() == 'ADDED_TO_INVENTORY'}"><button onclick="window.location.href='http://localhost:8080/reorder/vieworder';">
+					View Order</button>
 				</div>
 			</td>
 			<td>
-				<div th:if="${reorder.orderStatus.name() == 'PENDINGORDER'}"></div>
-				<div th:if="${reorder.orderStatus.name() == 'ORDERED'}"></div>
-				<div th:if="${reorder.orderStatus.name() == 'RECEIVED'}">
-					<a href="http://localhost:8080/reorder/editseform">Edit SE Form</a>
+				<div th:if="${reorder.status.name() == 'PENDING_ORDER'}"></div>
+				<div th:if="${reorder.status.name() == 'REORDERED'}"></div>
+				<div th:if="${reorder.status.name() == 'RECEIVED'}"><button onclick="window.location.href='http://localhost:8080/reorder/editseform';">
+					Edit SE Form</button>
 				</div>
-				<div th:if="${reorder.orderStatus.name() == 'ADDEDTOINVENTORY'}">
-					<a href="http://localhost:8080/reorder/viewseform">View SE Form</a>
+				<div th:if="${reorder.status.name() == 'ADDED_TO_INVENTORY'}"><button onclick="window.location.href='http://localhost:8080/reorder/viewseform';">
+					View SE Form</button>
 				</div>
 			</td>
 		</tr>
