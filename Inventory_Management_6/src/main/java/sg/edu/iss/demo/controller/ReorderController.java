@@ -57,7 +57,7 @@ public class ReorderController {
 	}
 	
 	// User requests to view stock entered after the previous order was added to inventory
-	@RequestMapping(value = "/viewseform", method = RequestMethod.GET)
+	@RequestMapping(value = "/seformview", method = RequestMethod.GET)
 	public String viewSEForm(Model model) {
 		Reorder reorder = new Reorder();
 		model.addAttribute("reorder", reorder);
@@ -65,7 +65,7 @@ public class ReorderController {
 	}
 	
 	// User requests to edit the stock upon receiving order
-	@RequestMapping(value = "/editseform", method = RequestMethod.GET)
+	@RequestMapping(value = "/seformedit", method = RequestMethod.GET)
 	public String editSEForm(Model model) {
 		Reorder reorder = new Reorder();
 		model.addAttribute("reorder", reorder);

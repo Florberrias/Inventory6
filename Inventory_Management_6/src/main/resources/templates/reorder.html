@@ -17,12 +17,20 @@
 					<label for="suppliers">Supplier: </label>
 							<select name="suppliers" id="suppliers">
 								<option th:each="reorder: ${rlist}" 
-										th:if="${reorder.orderQty} < ${reorder.product.MOQ}" 
+										th:if="${reorder.product.stock.units} < ${reorder.orderQty}" 
 										th:text="${reorder.product.supplier.id}"></option>
 							</select>
-					  Date From: <input type="date" name="datefrom">
-					  To: <input type="date" name="dateto">
+					<!-- This is a calendar picker, view on browser to pick the date -->
+					  Date From: <input type="date" 
+					  					name="datefrom" 
+					  					id="datefrom"
+					  					max="2020-12-16" >
+					  To: <input type="date" 
+					  			name="dateto" 
+					  			id="dateto"
+					  			max="2020-12-16">
   				<input type="submit" id="report" value="Generate Reorder Report" formtarget="_blank">
+  				<p id="datewarn"></p>
 				</form>
 			</td>
 			
@@ -50,9 +58,11 @@
 				<th>SUPPLIER ID</th>
 				<th>NAME</th>
 				<th>UNIT PRICE</th>
-				<th>ORDER QTY</th>
+				<th>STOCK UNITS</th>
 				<th>REORDER QTY</th>
 				<th>MIN ORDER QTY</th>
+				<th>ORDER QTY</th>
+				<th>DAMAGED QTY</th>
 				<th>LAST REORDER DATE</th>
 				<th>ORDER STATUS</th>
 				<th></th>
@@ -60,14 +70,16 @@
 			</tr>
 		</thead>
 
-		<tr th:each="reorder: ${rlist}" th:if="${reorder.orderQty} < ${reorder.product.MOQ}">
+		<tr th:each="reorder: ${rlist}" th:if="${reorder.product.stock.units} < ${reorder.orderQty}" >
 			<td th:text="${reorder.id}">Default</td>
 			<td th:text="${reorder.product.supplier.id}">Default</td>
 			<td th:text="${reorder.product.name}">Default</td>
 			<td th:text="${reorder.product.originalPrice}">Default</td>
-			<td th:text="${reorder.orderQty}">Default</td>
+			<td th:text="${reorder.product.stock.units}">Default</td>
 			<td th:text="${reorder.product.reorderQty}">Default</td>
 			<td th:text="${reorder.product.MOQ}">Default</td>
+			<td th:text="${reorder.orderQty}">Default</td>
+			<td th:text="${reorder.damagedQty}">Default</td>
 			<td th:text="${reorder.date}">Default</td>
 			<td th:text="${reorder.status}">Default</td>
 			<td>
